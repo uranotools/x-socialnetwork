@@ -1,0 +1,14 @@
+{
+  "name": "UranoXSocialNetwork",
+  "version": "1.0.0",
+  "description": "Gestor autónomo de red social (X/Twitter)",
+  "main": "config.js",
+  "scripts": {
+    "deploy": "npx esbuild config.ts Plugins/**/*.ts --bundle --platform=node --outdir=dist --format=cjs --external:@core/*",
+    "build": "npm install --save-dev esbuild",
+    "urano-launch": "powershell -Command \"Compress-Archive -Path dist\\* -DestinationPath ($env:npm_package_name + '.zip') -Force\""
+  },
+  "devDependencies": {
+    "esbuild": "^0.28.0"
+  }
+}
