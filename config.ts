@@ -31,6 +31,16 @@ export const UranoXSocialNetworkConfig = {
             title: 'Bearer Token (Opcional, para v2 endpoints)'
         },
         {
+            name: 'PREMIUM_API',
+            type: 'select',
+            title: 'Plan de la API de X',
+            options: [
+                { label: 'No (Free Tier - Solo publicar)', value: 'false' },
+                { label: 'Sí (Basic/Pro Tier - Lectura habilitada)', value: 'true' }
+            ],
+            default: 'false'
+        },
+        {
             name: 'DEFAULT_POST_INTERVAL',
             type: 'select',
             title: 'Frecuencia recomendada de posts',
@@ -50,7 +60,7 @@ export const UranoXSocialNetworkConfig = {
                     label: '📤 Publicar un nuevo Tweet',
                     fields: [
                         { name: 'content', type: 'prompt', label: 'Contenido del tweet (Max 280 caracteres)' },
-                        { name: 'mediaUrls', type: 'text', label: 'URLs de imágenes (separadas por coma, opcional)' }
+                        { name: 'mediaIds', type: 'text', label: 'IDs de medios subidos con uploadAndAttachMedia (separados por coma, opcional)' }
                     ]
                 },
                 getTimeline: {
@@ -71,7 +81,57 @@ export const UranoXSocialNetworkConfig = {
                     label: '💬 Responder a una mención o tweet',
                     fields: [
                         { name: 'tweetId', type: 'required', label: 'ID del tweet a responder' },
-                        { name: 'content', type: 'prompt', label: 'Contenido de la respuesta' }
+                        { name: 'content', type: 'prompt', label: 'Contenido de la respuesta' },
+                        { name: 'mediaIds', type: 'text', label: 'IDs de medios (opcional)' }
+                    ]
+                },
+                searchKeywords: {
+                    label: '🔍 Buscar Tweets (Keywords)',
+                    description: 'Busca tweets recientes que coincidan con palabras clave.',
+                    fields: [
+                        { name: 'query', type: 'required', label: 'Consulta de búsqueda (ej: "Inteligencia Artificial")' },
+                        { name: 'limit', type: 'number', label: 'Límite de resultados (opcional, defecto 10)' }
+                    ]
+                },
+                postThread: {
+                    label: '🧵 Publicar un Hilo (Thread)',
+                    description: 'Publica múltiples tweets encadenados en un hilo.',
+                    fields: [
+                        { name: 'tweets', type: 'required', label: 'Array de strings (en formato JSON) con los textos de los tweets' }
+                    ]
+                },
+                quoteTweet: {
+                    label: '💬 Citar Tweet (Quote)',
+                    fields: [
+                        { name: 'tweetId', type: 'required', label: 'ID del tweet a citar' },
+                        { name: 'content', type: 'prompt', label: 'Tu comentario sobre el tweet' }
+                    ]
+                },
+                retweet: {
+                    label: '🔁 Retweet',
+                    fields: [
+                        { name: 'tweetId', type: 'required', label: 'ID del tweet a retuitear' }
+                    ]
+                },
+                uploadAndAttachMedia: {
+                    label: '🖼️ Subir Medio (Imagen/Video)',
+                    description: 'Sube un archivo multimedia local o remoto y obtiene un mediaId.',
+                    fields: [
+                        { name: 'filePathOrUrl', type: 'required', label: 'Ruta local absoluta o URL web de la imagen/video' }
+                    ]
+                },
+                getTweetAnalytics: {
+                    label: '📊 Analítica de Tweet',
+                    description: 'Obtiene métricas públicas (likes, rts, respuestas) de tweets específicos.',
+                    fields: [
+                        { name: 'tweetIds', type: 'required', label: 'IDs de los tweets separados por comas' }
+                    ]
+                },
+                manageFollows: {
+                    label: '👥 Seguir o Dejar de Seguir',
+                    fields: [
+                        { name: 'targetUserId', type: 'required', label: 'ID del usuario objetivo' },
+                        { name: 'action', type: 'required', label: 'Acción: "follow" o "unfollow"' }
                     ]
                 }
             }
